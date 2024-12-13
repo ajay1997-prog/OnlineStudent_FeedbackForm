@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login</title>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      text-transform: uppercase; /* Automatically convert letters to uppercase */
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Student Login</h2>
+    <form id="studentLoginForm">
+      <label for="rollNumber">Roll Number:</label>
+      <input type="text" id="rollNumber" name="rollNumber" pattern="[0-9A-Za-z]{10}" required>
+      <label for="section">Section:</label>
+      <select id="section" name="section" required>
+        <option value="">Select Section</option>
+        <option value="CSE1">CSE1</option>
+        <option value="CSE2">CSE2</option>
+        <option value="CSE3">CSE3</option>
+        <option value="CSE4">CSE4</option>
+        <option value="CSE5">CSE5</option>
+        <!-- Add more options if needed -->
+      </select>
+      <input type="submit" value="Login">
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("studentLoginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var rollNumber = document.getElementById("rollNumber").value.toUpperCase(); // Convert letters to uppercase
+      var section = document.getElementById("section").value;
+      // Validate roll number length
+      if (rollNumber.length !== 10) {
+        alert("Roll number must contain 10 characters.");
+        return;
+      }
+      // Redirect to page3.html with roll number and section as query parameters
+      window.location.href = 'page3.html?rollNumber=' + encodeURIComponent(rollNumber) + '&section=' + encodeURIComponent(section);
+    });
+  </script>
+</body>
+</html>

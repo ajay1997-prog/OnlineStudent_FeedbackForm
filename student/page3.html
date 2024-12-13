@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Form</title>
+  <style>
+    /* Add your CSS styles here */
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      width: 90%; /* Adjust the width as needed */
+      max-width: 1200px; /* Set maximum width if necessary */
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    td {
+      background-color: #fff;
+    }
+    .option {
+      display: inline-block;
+      width: 60px; /* Adjust the width as needed */
+      height: 30px; /* Adjust the height as needed */
+      border: 2px solid #000;
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .option:hover {
+      background-color: #ccc;
+    }
+    .selected {
+      background-color: #4CAF50; /* Adjust the color as needed */
+      color: white;
+    }
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 20px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Feedback Form</h2>
+    
+    <form id="feedbackForm">
+      <table>
+        <tr>
+          <th>Subject</th>
+          <th>Faculty Name</th>
+          <th>Feedback</th>
+        </tr>
+        <tr>
+          <td>Discrete Mathematics</td>
+          <td>T.Devender Rao</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        <tr>
+          <td>Operating System</td>
+          <td>E.Kiran Kumar</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        <tr>
+          <td>Business Economics and Financial Analysis</td>
+          <td>S.Keerthi</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        <tr>
+          <td>Data Base Management System</td>
+          <td>Dr.Rishi Sayal</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        <tr>
+          <td>Software Engineering</td>
+          <td>Dr.Ravi Aavula</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        
+
+        <tr>
+          <td>Operating Systems Lab</td>
+          <td>E.Kiran Kumar(lab)</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        <tr>
+          <td>Data Base Management Systems Lab</td>
+          <td>S.Sreekanth</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        <tr>
+          <td>Constitution Of India</td>
+          <td>Maheshwaran</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        <tr>
+          <td>Skill Development Course</td>
+          <td>Veeresh Duvvuri</td>
+          <td class="option" onclick="selectFeedback(this)">Excellent</td>
+          <td class="option" onclick="selectFeedback(this)">Good</td>
+          <td class="option" onclick="selectFeedback(this)">Average</td>
+          <td class="option" onclick="selectFeedback(this)">Worst</td>
+        </tr>
+        <!-- Add more rows for other subjects -->
+      </table>
+      <input type="submit" id="submitButton" value="Submit">
+    </form>
+  </div>
+
+  <script>
+    // JavaScript for handling feedback selection
+    function selectFeedback(element) {
+      var row = element.parentElement;
+      var options = row.querySelectorAll('.option');
+      options.forEach(function(option) {
+        option.classList.remove('selected');
+      });
+      element.classList.add('selected');
+    }
+
+    // JavaScript for submitting feedback
+    document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get roll number and section from URL query parameters
+      var urlParams = new URLSearchParams(window.location.search);
+      var rollNumber = urlParams.get('rollNumber');
+      var section = urlParams.get('section');
+
+      // Get selected feedback data
+      var selectedOptions = document.querySelectorAll('.selected');
+      if (selectedOptions.length === 0) {
+        alert("Please select feedback for at least one subject.");
+        return;
+      }
+
+      // Initialize an array to store new feedback data
+      var feedbackArray = [];
+
+      // Iterate through selected options and append feedback data
+      selectedOptions.forEach(function(option) {
+        var subject = option.parentElement.cells[0].textContent;
+        var faculty = option.parentElement.cells[1].textContent;
+        var feedback = option.textContent;
+
+        // Add new feedback data to the array
+        var newFeedback = {
+          rollNumber: rollNumber,
+          section: section,
+          subject: subject,
+          faculty: faculty,
+          feedback: feedback
+        };
+
+        // Append the new feedback to the array
+        feedbackArray.push(newFeedback);
+      });
+
+      // Retrieve existing feedback data from local storage
+      var existingFeedbackData = localStorage.getItem('feedbackData');
+
+      // Initialize an array to store parsed feedback data
+      var combinedFeedbackArray = [];
+
+      // Check if existing feedback data exists in local storage
+      if (existingFeedbackData) {
+        // Parse the JSON string back to an array
+        combinedFeedbackArray = JSON.parse(existingFeedbackData);
+      }
+
+      // Merge the new feedback data with existing feedback data
+      combinedFeedbackArray = combinedFeedbackArray.concat(feedbackArray);
+
+      // Store the combined feedback array back into local storage
+      localStorage.setItem('feedbackData', JSON.stringify(combinedFeedbackArray));
+
+      // Redirect to page4.html after submitting feedback
+      window.location.href = 'page4.html';
+    });
+  </script>
+</body>
+</html>

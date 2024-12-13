@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    /* Add your CSS styles here */
+    /* Define your CSS styles */
+    .feedback-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .feedback-table th, .feedback-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    .feedback-table th {
+      background-color: #f2f2f2;
+    }
+    .feedback-table td {
+      background-color: #fff;
+    }
+
+    /* Style for the heading */
+    h2 {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    /* Style for the buttons */
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .action-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 0 10px;
+    }
+    .action-button:hover {
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <h2>Feedback Report</h2>
+  <table class="feedback-table">
+    <thead>
+      <tr>
+        <th>Faculty Name</th>
+        <th>No. of Students Given Feedbacks</th> <!-- New Column -->
+        <th>Overall Rating (out of 10)</th>
+        <th>Overall Feedback</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Feedback statistics will be dynamically populated here -->
+    </tbody>
+  </table>
+
+  <div class="button-container">
+    <button class="action-button" onclick="printFeedbackReport()">Print</button>
+    <button class="action-button" onclick="goBack()">Go Back</button>
+    <button class="action-button" onclick="sendToGoogleSheet()">Send to Google Sheet</button>
+
+  </div>
+
+  <script>
+    // Function to calculate overall rating out of 10
+    function calculateOverallRating(excellent, good, average, worst) {
+      var totalFeedbackCount = excellent + good + average + worst;
+      // Calculate overall rating out of 10
+      var overallRating = (excellent * 10 + good * 8 + average * 6 + worst * 2) / totalFeedbackCount;
+      return overallRating.toFixed(2); // Round to two decimal places
+    }
+
+    // Function to determine overall feedback based on overall rating
+    function determineOverallFeedback(overallRating) {
+      if (overallRating >= 8) {
+        return 'Excellent';
+      } else if (overallRating >= 6) {
+        return 'Good';
+      } else if (overallRating >= 4) {
+        return 'Average';
+      } else {
+        return 'Worst';
+      }
+    }
+
+    // Function to show feedback statistics
+    function showFeedbackStatistics() {
+      // Retrieve feedback data from local storage
+      var feedbackData = localStorage.getItem('feedbackData');
+      if (feedbackData) {
+        // Parse the JSON string back to an array
+        var feedbackArray = JSON.parse(feedbackData);
+        // Initialize feedback statistics object
+        var feedbackStats = {};
+        // Iterate over the feedback data array
+        feedbackArray.forEach(function(feedback) {
+          var teacherName = feedback.faculty;
+          if (!feedbackStats[teacherName]) {
+            feedbackStats[teacherName] = {
+              'Excellent': 0,
+              'Good': 0,
+              'Average': 0,
+              'Worst': 0,
+              'TotalStudents': 0 // Initialize total students
+            };
+          }
+          feedbackStats[teacherName][feedback.feedback]++;
+          feedbackStats[teacherName]['TotalStudents']++; // Increment total students
+        });
+        // Display feedback statistics in the table
+        var feedbackStatsTable = '';
+        for (var teacherName in feedbackStats) {
+          feedbackStatsTable += '<tr>';
+          feedbackStatsTable += '<td>' + teacherName + '</td>';
+          feedbackStatsTable += '<td>' + feedbackStats[teacherName]['TotalStudents'] + '</td>'; // Display total students
+          // Calculate overall rating out of 10
+          var overallRating = calculateOverallRating(
+            feedbackStats[teacherName]['Excellent'],
+            feedbackStats[teacherName]['Good'],
+            feedbackStats[teacherName]['Average'],
+            feedbackStats[teacherName]['Worst']
+          );
+          feedbackStatsTable += '<td>' + overallRating + '</td>';
+          // Determine overall feedback based on overall rating
+          var overallFeedback = determineOverallFeedback(overallRating);
+          feedbackStatsTable += '<td>' + overallFeedback + '</td>';
+          feedbackStatsTable += '</tr>';
+        }
+        // Display the table on the webpage
+        document.querySelector('.feedback-table tbody').innerHTML = feedbackStatsTable;
+      }
+    }
+
+    // Function to print the feedback report
+    function printFeedbackReport() {
+      window.print();
+    }
+
+    // Function to go back
+    function goBack() {
+      window.history.back();
+    }
+
+    // Call the function to show feedback statistics when the page is loaded
+    window.onload = showFeedbackStatistics;
+  function sendDataToGoogleSheet() {
+    var data = {
+      faculty: "Faculty Name", // Get this value from your HTML form
+      feedback: "Feedback" // Get this value from your HTML form
+    };
+
+    var url = "https://script.google.com/macros/s/AKfycbzj4CCbe_fVihFwlyW3nHcyalpMNOL_V8MaI2___yj7ZuRQoufBa0cCGb-vIiXNZHlS_Q/exec";
+    var options = {
+      method: "post",
+      contentType: "application/json",
+      payload: JSON.stringify(data)
+    };
+
+    fetch(url, options)
+      .then(response => response.text())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  }
+  </script>
+</body>
+</html>

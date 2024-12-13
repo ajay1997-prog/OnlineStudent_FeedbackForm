@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    /* Add your CSS styles here */
+    /* Define your CSS styles */
+    .feedback-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .feedback-table th, .feedback-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    .feedback-table th {
+      background-color: #f2f2f2;
+    }
+    .feedback-table td {
+      background-color: #fff;
+    }
+
+    /* Original styles */
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .button-container button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .button-container button:hover {
+      background-color: #45a049;
+    }
+
+    /* Style for the heading */
+    h2 {
+      background-color: #45a049;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>Feedback Report</h2>
+  <table class="feedback-table">
+    <thead>
+      <tr>
+        <th>Roll Number</th>
+        <th>Section</th>
+        <th>Subject</th>
+        <th>Faculty Name</th>
+        <th>Feedback</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Feedback data will be dynamically populated here -->
+    </tbody>
+  </table>
+  <div class="button-container">
+    <button id="resetButton">Reset</button>
+    <button id="exitButton" onclick="exit()">Exit</button>
+    <button onclick="window.print()">Print</button>
+    <button onclick="showOverallResult()">Show Overall Result</button> <!-- New button -->
+  </div>
+
+  <script>
+    document.getElementById("resetButton").addEventListener("click", function() {
+      clearFeedbackTable();
+    });
+
+    function clearFeedbackTable() {
+      const feedbackTableBody = document.querySelector('.feedback-table tbody');
+      feedbackTableBody.innerHTML = ''; // Clear table body
+      // Clear data from local storage
+      localStorage.removeItem('feedbackData');
+    }
+
+    function exit() {
+      // Redirect to user_selection.html
+      window.location.href = 'end.html';
+    }
+
+    function showOverallResult() {
+      // Redirect to the new page for overall result
+      window.location.href = 'overall_result.html';
+    }
+
+    // Retrieve feedback data from local storage
+    var feedbackData = localStorage.getItem('feedbackData');
+
+    // Check if feedback data exists in local storage
+    if (feedbackData) {
+      // Parse the JSON string back to an array
+      var feedbackArray = JSON.parse(feedbackData);
+
+      // Sort the feedbackArray based on rollNumber in ascending order
+      feedbackArray.sort(function(a, b) {
+        return a.rollNumber - b.rollNumber;
+      });
+
+      // Iterate over the sorted feedback data array and display it in the table
+      var feedbackTableBody = document.querySelector('.feedback-table tbody');
+      feedbackArray.forEach(function(feedback) {
+        var row = feedbackTableBody.insertRow();
+        row.insertCell().textContent = feedback.rollNumber;
+        row.insertCell().textContent = feedback.section;
+        row.insertCell().textContent = feedback.subject;
+        row.insertCell().textContent = feedback.faculty;
+        row.insertCell().textContent = feedback.feedback;
+      });
+    }
+  </script>
+</body>
+</html>
